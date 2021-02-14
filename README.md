@@ -1,2 +1,2 @@
-# nametheplane
-Name The Plane ✈️ ~ Telegram Bot to identify planes above you
+# Name The Plane ✈️
+Name The Plane is a Telegram Bot to identify planes above you.
