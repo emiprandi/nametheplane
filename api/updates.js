@@ -10,15 +10,14 @@ module.exports = async (req, res) => {
       retry: 0,
       json: {
         chat_id: msg.message.chat.id,
-        text: `Hi there! I only understand location messages so far. Please send me any
-          location and I will tell you if there are planes flighing in that area.`,
+        text: `Hi there! I only understand location messages so far. Please send me a location and I will tell you if there are planes flighing in that area.`,
       },
-    });
+    })
   } else if (msg.message.location) {
     // aprox 50km
     const radiusInDregrees = 0.4
 
-    const location = msg.message.location;
+    const location = msg.message.location
     const boundBox = {
       lamin: location.latitude - radiusInDregrees,
       lomin: location.longitude - radiusInDregrees,
@@ -27,18 +26,23 @@ module.exports = async (req, res) => {
     }
     console.log(`https://opensky-network.org/api/states/all?lamin=${boundBox.lamin}&lomin=${boundBox.lomin}&lamax=${boundBox.lamax}&lomax=${boundBox.lomax}`)
 
-    // const planes = await got(`https://opensky-network.org/api/states/all?lamin=${boundBox.lamin}&lomin=${boundBox.lomin}&lamax=${boundBox.lamax}&lomax=${boundBox.lomax}`, {
-    //   retry: 0,
-    // });
+    const planes = await got(`https://opensky-network.org/api/states/all?lamin=${boundBox.lamin}&lomin=${boundBox.lomin}&lamax=${boundBox.lamax}&lomax=${boundBox.lomax}`, {
+      retry: 0,
+      responseType: 'json'
+    })
 
-    // await got.post(`https://api.telegram.org/bot${process.env.BOT_TOKEN}/sendMessage`, {
-    //   retry: 0,
-    //   json: {
-    //     chat_id: msg.message.chat.id,
-    //     text: `Hi there! I only understand location messages so far. Please send me any
-    //       location and I will tell you if there are planes flighing in that area.`,
-    //   },
-    // });
+    const result = []
+    planes.body.states.forEach(plane => {
+      result.push([`${plane[1]} (${plane[0]}): ${plane[2]}`])
+    })
+
+    await got.post(`https://api.telegram.org/bot${process.env.BOT_TOKEN}/sendMessage`, {
+      retry: 0,
+      json: {
+        chat_id: msg.message.chat.id,
+        text: result.join(' - '),
+      },
+    })
   }
 
   res.send(true)
