@@ -1,6 +1,6 @@
 module.exports = (req, res) => {
-  const msg = req.body.message
-  console.log(msg)
+  const msg = req.body
+  console.log(msg.message)
 
   // await got.post(`https://api.telegram.org/bot${process.env.BOT_TOKEN}/sendMessage`, {
   //   retry: 0,
