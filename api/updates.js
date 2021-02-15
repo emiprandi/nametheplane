@@ -4,7 +4,7 @@ module.exports = async (req, res) => {
   const msg = req.body
   console.log(msg.message)
 
-  if (message.text) {
+  if (msg.message.text) {
     // we received a message, but we don't do anything with messages yet, so let's reply politely
     await got.post(`https://api.telegram.org/bot${process.env.BOT_TOKEN}/sendMessage`, {
       retry: 0,
@@ -14,11 +14,11 @@ module.exports = async (req, res) => {
           location and I will tell you if there are planes flighing in that area.`,
       },
     });
-  } else if (message.location) {
+  } else if (msg.message.location) {
     // aprox 50km
     const radiusInDregrees = 0.4
 
-    const location = message.location;
+    const location = msg.message.location;
     const boundBox = {
       lamin: location.latitude - radiusInDregrees,
       lomin: location.longitude - radiusInDregrees,
