@@ -1,4 +1,4 @@
-module.exports = async (req, res) => {
+module.exports = (req, res) => {
   const msg = req.body.message
   console.log(msg)
 
