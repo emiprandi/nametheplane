@@ -3,8 +3,14 @@ const got = require('got');
 module.exports = (req, res) => {
   console.log({
     body: req.body,
-    query: req.query,
-    cookies: req.cookies,
+  })
+
+  const msg = req.body
+
+  console.log({
+    from: msg.message.from,
+    chat: msg.message.chat,
+    full: msg.message,
   })
 
   // (async () => {
@@ -24,9 +30,5 @@ module.exports = (req, res) => {
   //   }
   // })();
 
-  res.json({
-    body: req.body,
-    query: req.query,
-    cookies: req.cookies,
-  })
+  res.send('ok')
 }
