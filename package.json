@@ -15,5 +15,7 @@
     "url": "https://github.com/emiprandi/nametheplane/issues"
   },
   "homepage": "https://github.com/emiprandi/nametheplane#readme",
-  "dependencies": {}
+  "dependencies": {
+    "got": "11.8.1"
+  }
 }

@@ -1,3 +1,5 @@
+const got = require('got')
+
 module.exports = async (req, res) => {
   const msg = req.body
   console.log(msg.message)
