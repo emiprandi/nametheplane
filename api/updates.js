@@ -8,7 +8,7 @@ module.exports = async (req, res) => {
     retry: 0,
     json: {
       chat_id: msg.message.chat.id,
-      text: 'Si, soy yo!!!',
+      text: 'Hi!',
     },
   });
 
