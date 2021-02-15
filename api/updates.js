@@ -1,17 +1,8 @@
 const got = require('got');
 
 module.exports = (req, res) => {
-  console.log({
-    body: req.body,
-  })
-
   const msg = req.body
-
-  console.log({
-    from: msg.message.from,
-    chat: msg.message.chat,
-    full: msg.message,
-  })
+  console.log(msg.message)
 
   // (async () => {
   //   try {
