@@ -4,22 +4,12 @@ module.exports = (req, res) => {
   const msg = req.body
   console.log(msg.message)
 
-  // (async () => {
-  //   try {
-  //     const {body} = await got.post('https://webhook.site/9e6e3d2f-3614-4ba0-90e2-1f320192f561', {
-  //       json: {
-  //         body: req.body,
-  //         query: req.query,
-  //         cookies: req.cookies,
-  //       },
-  //       responseType: 'json'
-  //     });
+  got.post(`https://api.telegram.org/bot${process.env.BOT_TOKEN}/sendMessage`, {
+    json: {
+      chat_id: msg.chat.id,
+      text: 'Si, soy yo!!!',
+    },
+  });
 
-  //     result = body
-  //   } catch (err) {
-  //     result = 'Somthing went really bad :' + err
-  //   }
-  // })();
-
-  res.send('ok')
+  res.status(200)
 }
