@@ -1,0 +1,21 @@
+{
+  "name": "nametheplane",
+  "version": "1.0.0",
+  "description": "Name The Plane is a Telegram Bot to identify planes above you.",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/emiprandi/nametheplane.git"
+  },
+  "author": "Emiliano Prandi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/emiprandi/nametheplane/issues"
+  },
+  "homepage": "https://github.com/emiprandi/nametheplane#readme",
+  "dependencies": {
+    "got": "11.8.1"
+  }
+}

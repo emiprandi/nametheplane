@@ -1,3 +1,5 @@
+const got = require('got');
+
 module.exports = (req, res) => {
   res.json({
     body: req.body,
@@ -5,3 +7,4 @@ module.exports = (req, res) => {
     cookies: req.cookies,
   })
 }
+
