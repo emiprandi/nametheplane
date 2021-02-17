@@ -30,7 +30,7 @@ module.exports = async (req, res) => {
       )
     })
 
-    const planesFinal = planes.map(async plane => {
+    const planesFinal = planes.map(plane => async (plane) => {
       const result = await Promise.all(plane)
       return {
         callsign: result[1].callsign,
