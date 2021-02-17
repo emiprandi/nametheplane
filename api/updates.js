@@ -23,6 +23,7 @@ module.exports = async (req, res) => {
 
     const planes = []
     planesRaw.body.states.forEach((plane, index) => {
+      planes[index] = []
       planes[index].push(
         got(`https://opensky-network.org/api/metadata/aircraft/icao/${plane[0]}`),
         got(`https://opensky-network.org/api/routes?callsign=${plane[1].trim()}`),
