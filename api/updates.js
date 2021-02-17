@@ -30,20 +30,21 @@ module.exports = async (req, res) => {
       )
     })
 
-    const planesFinal = planes.map(plane => async (plane) => {
-      const result = await Promise.all(plane)
-      return {
-        callsign: result[1].callsign,
-        flightNumber: result[1].flightNumber,
-        manufacturer: result[0].manufacturerName,
-        model: result[0].model,
-        operator: result[0].operatorCallsign,
-        country: result[0].country,
-        route: result[1].route
-      }
-    })
-
+    const planesFinal = await Promise.all(planes.map(Promise.all))
     console.log(planesFinal)
+
+    // plane => async (plane) => {
+    //   const result = await
+    //   return {
+    //     callsign: result[1].callsign,
+    //     flightNumber: result[1].flightNumber,
+    //     manufacturer: result[0].manufacturerName,
+    //     model: result[0].model,
+    //     operator: result[0].operatorCallsign,
+    //     country: result[0].country,
+    //     route: result[1].route
+    //   }
+    //   })
 
     await got.post(`https://api.telegram.org/bot${process.env.BOT_TOKEN}/sendMessage`, {
       retry: 0,
