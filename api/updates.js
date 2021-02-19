@@ -13,7 +13,7 @@ module.exports = async (req, res) => {
       aircrafts.forEach(async plane => {
         await sendMessage(msg.message.chat.id, `${plane.aircraft.manufacturer} ${plane.aircraft.model}
         Operated by: ${plane.aircraft.operator} (${plane.aircraft.country})
-        Route: ${plane.route.join(' -> ')}`)
+        Route: ${plane.route}`)
       })
     } else {
       await sendMessage(msg.message.chat.id, 'I didn\'t find any aircrafts in this area')
