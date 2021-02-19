@@ -33,7 +33,7 @@ const getFlightRoute = async (callsign) => {
       retry: 0,
       responseType: 'json'
     })
-    route = response.body
+    route = response.body.route
   } catch (err) {
     route = ['Not available']
   }
