@@ -1,5 +1,5 @@
 const got = require('got');
-const { getGeoArea } = require('./geo')
+const { getGeoAreaFromLocation } = require('./geo')
 
 const getAircraftInfo = async (icao) => {
   let aircraft;
@@ -40,11 +40,11 @@ const getFlightRoute = async (callsign) => {
   return route
 }
 
-const getAircraftsByLocation = async (latLon) => {
+const getAircraftsByLocation = async (location) => {
   let aircrafts = []
 
   try {
-    const boundBox = getGeoArea(latLon)
+    const boundBox = getGeoAreaFromLocation(location)
     console.log(`https://opensky-network.org/api/states/all?lamin=${boundBox.lamin}&lomin=${boundBox.lomin}&lamax=${boundBox.lamax}&lomax=${boundBox.lomax}`)
     const aircraftsInArea = await got(`https://opensky-network.org/api/states/all?lamin=${boundBox.lamin}&lomin=${boundBox.lomin}&lamax=${boundBox.lamax}&lomax=${boundBox.lomax}`, {
       retry: 0,

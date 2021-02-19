@@ -1,4 +1,4 @@
-const getGeoArea = async (location) => {
+const getGeoAreaFromLocation = (location) => {
   // aprox 50km
   const radiusInDregrees = 0.4
 
@@ -11,5 +11,5 @@ const getGeoArea = async (location) => {
 }
 
 module.exports = {
-  getGeoArea
+  getGeoAreaFromLocation
 }
