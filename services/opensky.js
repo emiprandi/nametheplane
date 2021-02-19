@@ -1,4 +1,5 @@
 const got = require('got');
+const { getGeoArea } = require('./geo')
 
 const getAircraftInfo = async (icao) => {
   let aircraft;
@@ -39,9 +40,11 @@ const getFlightRoute = async (callsign) => {
   return route
 }
 
-const getAircraftsInABox = async (boundBox) => {
+const getAircraftsByLocation = async (latLon) => {
   let aircrafts = []
+
   try {
+    const boundBox = getGeoArea(latLon)
     const aircraftsInArea = await got(`https://opensky-network.org/api/states/all?lamin=${boundBox.lamin}&lomin=${boundBox.lomin}&lamax=${boundBox.lamax}&lomax=${boundBox.lomax}`, {
       retry: 0,
       responseType: 'json'
@@ -66,5 +69,5 @@ const getAircraftsInABox = async (boundBox) => {
 }
 
 module.exports = {
-  getAircraftsInABox
+  getAircraftsByLocation
 }

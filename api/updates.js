@@ -1,5 +1,4 @@
-const { getGeoArea } = require('../services/geo')
-const { getAircraftsInABox } = require('../services/opensky')
+const { getAircraftsByLocation } = require('../services/opensky')
 const { sendMessage } = require('../services/telegram')
 
 module.exports = async (req, res) => {
@@ -7,8 +6,7 @@ module.exports = async (req, res) => {
   console.log(msg.message)
 
   if (msg.message.location) {
-    const boundBox = getGeoArea(msg.message.location)
-    const planes = await getAircraftsInABox(boundBox)
+    const planes = await getAircraftsByLocation(msg.message.location)
 
     if (planes.length > 0) {
       planes.forEach(async plane => {
