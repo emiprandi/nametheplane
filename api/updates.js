@@ -12,7 +12,10 @@ module.exports = async (req, res) => {
 
     if (aircrafts.length > 0) {
       await Promise.all(aircrafts.map(async plane => {
-        const message = '*' + plane.callsign + ':* ' + plane.aircraft.model
+        const message = `*${plane.callsign}:* ${plane.aircraft.model}
+_${plane.aircraft.manufacturer}_
+*Operated by:* ${plane.aircraft.operator} (${plane.aircraft.country})
+*Route:* ${plane.route.join(' -> ')}`
         await sendMessage(chatId, message)
       }))
     } else {
