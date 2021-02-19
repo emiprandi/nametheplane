@@ -6,10 +6,11 @@ module.exports = async (req, res) => {
   console.log(msg.message)
 
   if (msg.message.location) {
-    const planes = await getAircraftsByLocation(msg.message.location)
+    const aircrafts = await getAircraftsByLocation(msg.message.location)
+    console.log(aircrafts)
 
-    if (planes.length > 0) {
-      planes.forEach(async plane => {
+    if (aircrafts.length > 0) {
+      aircrafts.forEach(async plane => {
         await sendMessage(msg.message.chat.id, `${plane.aircraft.manufacturer} ${plane.aircraft.model}
         Operated by: ${plane.aircraft.operator} (${plane.aircraft.country})
         Route: ${plane.route.join(' -> ')}`)
