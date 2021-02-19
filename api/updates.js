@@ -10,7 +10,7 @@ module.exports = async (req, res) => {
     const boundBox = getGeoArea(msg.message.location)
     const planes = await getAircraftsInABox(boundBox)
 
-    planes.forEach(plane => {
+    planes.forEach(async plane => {
       await sendMessage(msg.message.chat.id, `${plane.aircraft.manufacturer} ${plane.aircraft.model}
       Operated by: ${plane.aircraft.operator} (${plane.aircraft.country})
       Route: ${plane.route.join(' -> ')}`)
