@@ -12,10 +12,8 @@ module.exports = async (req, res) => {
 
     if (aircrafts.length > 0) {
       await Promise.all(aircrafts.map(async plane => {
-        await sendMessage(chatId, `*${plane.aircraft.model}:* ${plane.aircraft.model}
-_${plane.aircraft.manufacturer}_
-*Operated by:* ${plane.aircraft.operator} (${plane.aircraft.country})
-*Route:* ${plane.route}`)
+        const message = '*' + plane.callsign + ':* ' + plane.aircraft.model
+        await sendMessage(chatId, message)
       }))
     } else {
       await sendMessage(chatId, 'I didn\'t find any aircrafts in this area')
