@@ -3,10 +3,10 @@ const { sendMessage } = require('../services/telegram')
 
 module.exports = async (req, res) => {
   const msg = req.body
+  const chatId = msg.message.chat.id
   console.log(msg.message)
 
   if (msg.message.location) {
-    const chatId = msg.message.chat.id
     const aircrafts = await getAircraftsByLocation(msg.message.location)
     console.log(aircrafts)
 
