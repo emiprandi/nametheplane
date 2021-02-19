@@ -45,7 +45,6 @@ const getAircraftsByLocation = async (location) => {
 
   try {
     const boundBox = getGeoAreaFromLocation(location)
-    console.log(`https://opensky-network.org/api/states/all?lamin=${boundBox.lamin}&lomin=${boundBox.lomin}&lamax=${boundBox.lamax}&lomax=${boundBox.lomax}`)
     const aircraftsInArea = await got(`https://opensky-network.org/api/states/all?lamin=${boundBox.lamin}&lomin=${boundBox.lomin}&lamax=${boundBox.lamax}&lomax=${boundBox.lomax}`, {
       retry: 0,
       responseType: 'json'
