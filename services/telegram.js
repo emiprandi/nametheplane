@@ -11,6 +11,7 @@ const sendMessage = async (chat, message) => {
       },
     })
   } catch (err) {
+    console.log(err)
   }
 }
 
