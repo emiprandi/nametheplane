@@ -6,7 +6,7 @@ const sendMessage = async (chat, message) => {
       retry: 0,
       json: {
         chat_id: chat,
-        parse_mode: 'MarkdownV2',
+        parse_mode: 'HTML',
         text: message,
       },
     })
