@@ -8,6 +8,8 @@ const getCountryByCode = async (countryCode) => {
       responseType: 'json'
     })
 
+    console.log('country', countryCode, response.body)
+
     if (response.body.name) {
       country = country.body.name
     }
