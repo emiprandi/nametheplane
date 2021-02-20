@@ -56,10 +56,7 @@ const getFlightRoute = async (callsign) => {
       responseType: 'json'
     })
     console.log('route', response.body.route)
-    route = Promise.all(response.body.route.map(async airport => {
-      const stop = await getAirport(airport)
-      return stop.body
-    }))
+    route = Promise.all(response.body.route.map(async airport => await getAirport(airport)))
   } catch (err) {
     route = null
   }
