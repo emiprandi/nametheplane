@@ -44,7 +44,6 @@ const getAirport = async (icao) => {
     airport = null
   }
 
-  console.log('airport', airport)
   return airport
 }
 
@@ -55,7 +54,6 @@ const getFlightRoute = async (callsign) => {
       retry: 0,
       responseType: 'json'
     })
-    console.log('route', response.body.route)
     route = Promise.all(response.body.route.map(async airport => await getAirport(airport)))
   } catch (err) {
     route = null
