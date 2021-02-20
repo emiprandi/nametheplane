@@ -11,10 +11,19 @@ module.exports = async (req, res) => {
 
     if (aircrafts.length > 0) {
       await Promise.all(aircrafts.map(async plane => {
-        const message = `*${plane.callsign}:* ${plane.aircraft.model}
-_${plane.aircraft.manufacturer}_
-*Operated by:* ${plane.aircraft.operator} (${plane.aircraft.country})
-*Route:* ${plane.route}`
+        let message
+        message += '*' + plane.callsign + ':*'
+        if (plane.aircraft) {
+          message += plane.aircraft.model + '\n'
+          message += '_' + plane.aircraft.manufacturer + '_\n'
+          message += '*Operated by:*' + plane.aircraft.operator + '\n'
+        }
+        if (plane.route) {
+          message += '*Route:*\n'
+          plane.route.forEach(airport => {
+            message += ' ○ ' + airport.name + '(' + airport.country + ')\n'
+          });
+        }
         await sendMessage(chatId, message)
       }))
     } else {

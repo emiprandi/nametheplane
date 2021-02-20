@@ -17,12 +17,7 @@ const getAircraft = async (icao) => {
       country: response.body.country,
     }
   } catch (err) {
-    aircraft = {
-      manufacturer: '',
-      model: 'Not available',
-      operator: 'Not available',
-      country: 'Not available',
-    }
+    aircraft = null
   }
   return aircraft
 }
