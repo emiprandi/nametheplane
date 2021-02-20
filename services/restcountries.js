@@ -11,7 +11,7 @@ const getCountryByCode = async (countryCode) => {
     console.log('country', countryCode, response.body)
 
     if (response.body.name) {
-      country = country.body.name
+      country = response.body.name
     }
   } catch (err) {
     country = null
