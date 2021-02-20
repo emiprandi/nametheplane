@@ -9,6 +9,8 @@ module.exports = async (req, res) => {
   if (msg.message.location) {
     const aircrafts = await getAircraftsByLocation(msg.message.location)
 
+    console.log(aircrafts)
+
     if (aircrafts.length > 0) {
       await Promise.all(aircrafts.map(async plane => {
         const message = `*${plane.callsign}:* ${plane.aircraft.model}

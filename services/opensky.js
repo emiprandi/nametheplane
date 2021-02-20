@@ -1,7 +1,8 @@
 const got = require('got');
 const { getGeoAreaFromLocation } = require('./geo')
+const { getCountryByCode } = require('./restcountries')
 
-const getAircraftInfo = async (icao) => {
+const getAircraft = async (icao) => {
   let aircraft;
   try {
     response = await got(`https://opensky-network.org/api/metadata/aircraft/icao/${icao}`, {
@@ -26,6 +27,25 @@ const getAircraftInfo = async (icao) => {
   return aircraft
 }
 
+const getAirport = async (icao) => {
+  let airport;
+  try {
+    response = await got(`https://opensky-network.org/api/airports/?icao=${icao}`, {
+      retry: 0,
+      responseType: 'json'
+    })
+
+    airport = {
+      name: response.body.name,
+      municipality: response.body.municipality,
+      country: await getCountryByCode(response.body.country),
+    }
+  } catch (err) {
+    airport = null
+  }
+  return airport
+}
+
 const getFlightRoute = async (callsign) => {
   let route;
   try {
@@ -33,9 +53,12 @@ const getFlightRoute = async (callsign) => {
       retry: 0,
       responseType: 'json'
     })
-    route = response.body.route
+    route = Promise.all(response.body.route.map(async airport => {
+      const stop = await getAirport(airport)
+      return stop.body
+    }))
   } catch (err) {
-    route = ['Not available']
+    route = null
   }
   return route
 }
@@ -51,21 +74,21 @@ const getAircraftsByLocation = async (location) => {
     })
 
     if (aircraftsInArea.body.states) {
-      aircrafts = aircraftsInArea.body.states.map(async plane => {
+      aircrafts = Promise.all(aircraftsInArea.body.states.map(async plane => {
         const icao = plane[0]
         const callsign = plane[1].trim()
         return {
           icao: icao,
           callsign: callsign,
-          aircraft: await getAircraftInfo(icao),
+          aircraft: await getAircraft(icao),
           route: await getFlightRoute(callsign),
         }
-      })
+      }))
     }
   } catch (err) {
   }
 
-  return Promise.all(aircrafts)
+  return aircrafts
 }
 
 module.exports = {
