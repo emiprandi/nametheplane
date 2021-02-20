@@ -16,7 +16,7 @@ module.exports = async (req, res) => {
         const message = `*${plane.callsign}:* ${plane.aircraft.model}
 _${plane.aircraft.manufacturer}_
 *Operated by:* ${plane.aircraft.operator} (${plane.aircraft.country})
-*Route:* ${plane.route.join(' -> ')}`
+*Route:* ${plane.route}`
         await sendMessage(chatId, message)
       }))
     } else {
