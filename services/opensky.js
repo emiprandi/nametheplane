@@ -49,7 +49,7 @@ const getFlightRoute = async (callsign) => {
       retry: 0,
       responseType: 'json'
     })
-    route = Promise.all(response.body.route.map(async airport => await getAirport(airport)))
+    route = Promise.all(response.body.route.map(async (airport) => await getAirport(airport)))
   } catch (err) {
     route = null
   }
@@ -67,7 +67,7 @@ const getAircraftsByLocation = async (location) => {
     })
 
     if (aircraftsInArea.body.states) {
-      aircrafts = Promise.all(aircraftsInArea.body.states.map(async plane => {
+      aircrafts = Promise.all(aircraftsInArea.body.states.map(async (plane) => {
         const icao = plane[0]
         const callsign = plane[1].trim()
         return {

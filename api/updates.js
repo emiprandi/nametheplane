@@ -10,7 +10,7 @@ module.exports = async (req, res) => {
     const aircrafts = await getAircraftsByLocation(msg.message.location)
 
     if (aircrafts.length > 0) {
-      await Promise.all(aircrafts.map(async plane => {
+      await Promise.all(aircrafts.map(async (plane) => {
         let message = '*' + plane.callsign + ':* '
         if (plane.aircraft) {
           message += plane.aircraft.model + '\n'
@@ -21,7 +21,7 @@ module.exports = async (req, res) => {
         }
         if (plane.route) {
           message += '*Route:*\n'
-          plane.route.forEach(airport => {
+          plane.route.forEach((airport) => {
             message += ' • ' + airport.name + ' (' + airport.country + ')\n'
           });
         }
